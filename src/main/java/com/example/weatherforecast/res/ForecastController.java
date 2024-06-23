@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /** ForecastController handles HTTP requests for weather forecasts.
  *
@@ -44,21 +46,37 @@ public class ForecastController {
      * @return ForecastResponse containing the weather forecast data.
      * @throws Exception if an error occurs while fetching the forecast data.
      */
+    /**
+     * Retrieves the weather forecast based on the specified parameters.
+     *
+     * @param q      The locations for the forecast.
+     * @param days   The number of days for the forecast (default is 3).
+     * @param dt     The date for the forecast (optional).
+     * @param lang   The language for the forecast (default is "eng").
+     * @return List of ForecastResponse containing the weather forecast data for each location.
+     * @throws Exception if an error occurs while fetching the forecast data.
+     */
     @GetMapping(path = "/forecast")
-    public ForecastResponse weatherForecast(
-            @RequestParam String q,
+    public List<ForecastResponse> weatherForecast(
+            @RequestParam List<String> q,
             @RequestParam(required = false, defaultValue = "3") Integer days,
             @RequestParam(required = false) @DateTimeFormat(
                     iso = DateTimeFormat.ISO.DATE) LocalDate dt,
             @RequestParam(required = false, defaultValue = "eng") String lang) throws Exception {
 
-        final ForecastRequestDetail forecastRequestDetail = ForecastRequestDetail.builder()
-                .location(q)
-                .days(days)
-                .date(dt)
-                .language(lang)
-                .build();
+        List<ForecastResponse> responses = new ArrayList<>();
 
-        return forecastService.getResponse(forecastRequestDetail);
+        for (String location : q) {
+            final ForecastRequestDetail forecastRequestDetail = ForecastRequestDetail.builder()
+                    .location(location)
+                    .days(days)
+                    .date(dt)
+                    .language(lang)
+                    .build();
+
+            responses.add(forecastService.getResponse(forecastRequestDetail));
+        }
+
+        return responses;
     }
 }

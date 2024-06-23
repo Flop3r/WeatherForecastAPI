@@ -33,7 +33,7 @@ public class ForecastService {
     /**
      * Retrieves the weather forecast response for the given request details.
      *
-     * @param forecastRequestDetail The details of the forecast request, including location, date, etc.
+     * @param forecastRequestDetail The details of the forecast request, including location, date, extc.
      * @return ForecastResponse containing the processed weather forecast data.
      * @throws Exception if an error occurs while fetching or transforming the forecast data.
      */
