@@ -53,13 +53,11 @@ public class ForecastService {
      *
      * @param days The number of days for the forecast.
      * @param dt The date for the forecast.
-     * @param lang The language for the forecast.
      * @return A list of ForecastResponse for the largest cities.
      */
     public List<ForecastResponse> getForecastsLargestCities(
             Integer days,
-            LocalDate dt,
-            String lang) {
+            LocalDate dt) {
         // List of the 5 largest population Polish cities
         List<String> largestCities = Arrays.asList("Warsaw", "Krakow", "Lodz", "Wroclaw", "Poznan");
         List<ForecastResponse> responses = new ArrayList<>();
@@ -72,7 +70,6 @@ public class ForecastService {
                         .location(city)
                         .days(days)
                         .date(dt)
-                        .language(lang)
                         .build();
 
                 // Get the forecast response for each city

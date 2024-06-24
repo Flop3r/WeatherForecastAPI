@@ -85,7 +85,6 @@ public class ForecastProvider {
                 .queryParam(QUERY_PARAM_LOCATION, forecastRequestDetail.getLocation())
                 .queryParam(QUERY_PARAM_DATE, forecastRequestDetail.getDate())
                 .queryParam(QUERY_PARAM_DAYS, forecastRequestDetail.getDays())
-                .queryParam(QUERY_PARAM_LANG, forecastRequestDetail.getLanguage())
                 .queryParam(QUERY_PARAM_KEY, apiKey)
                 .build();
     }

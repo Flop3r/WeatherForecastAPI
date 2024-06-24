@@ -34,5 +34,4 @@ public class ForecastRequestDetail {
     private String location;
     private Integer days;
     private LocalDate date;
-    private String language;
 }

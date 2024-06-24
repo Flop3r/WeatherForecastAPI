@@ -29,7 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1")
-@Tag(name = "Forecasts", description = "Operations related to weather forecasts")
+@Tag(name = "APIs", description = "APIs")
 @Validated
 public class ForecastController {
 
@@ -47,7 +47,6 @@ public class ForecastController {
      * @param q      Locations for the forecast
      * @param days   Number of days for the forecast (default is 3)
      * @param dt     Date for the forecast (optional)
-     * @param lang   Language for the forecast (default is 'eng')
      * @return Weather forecast response
      */
     @Operation(summary = "Get weather forecasts for specified locations",
@@ -61,17 +60,20 @@ public class ForecastController {
     })
     @GetMapping(path = "/forecast")
     public ResponseEntity<?> weatherForecast(
-            @Parameter(description = "Locations for the forecast")
+            @Parameter(description = "Pass US Zipcode, UK Postcode," +
+                    " Canada Postalcode, IP address," +
+                    " Latitude/Longitude (decimal degree)" +
+                    " or city name in English.")
             @RequestParam @NotBlank String q,
-            @Parameter(description = "Number of days for the forecast (default is 3)")
+            @Parameter(description = "Number of days of weather forecast." +
+                    " Value ranges from 1 to 14")
             @RequestParam(required = false, defaultValue = "3") @Min(1) Integer days,
-            @Parameter(description = "Date for the forecast (optional)")
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt,
-            @Parameter(description = "Language for the forecast (default is 'eng')")
-            @RequestParam(required = false, defaultValue = "eng") String lang
+            @Parameter(description = "Date should be between today and next 14 day" +
+                    " in yyyy-MM-dd format. e.g. '2015-01-01'")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt
     ) throws Exception {
         // Create request detail object
-        ForecastRequestDetail requestDetail = new ForecastRequestDetail(q, days, dt, lang);
+        ForecastRequestDetail requestDetail = new ForecastRequestDetail(q, days, dt);
         // Fetch the forecast response
         ForecastResponse response = forecastService.getResponse(requestDetail);
         // Return the response entity
@@ -83,7 +85,6 @@ public class ForecastController {
      *
      * @param days    Number of days for the forecast (default is 3)
      * @param dt      Date for the forecast (optional)
-     * @param lang    Language for the forecast (default is 'eng')
      * @return Weather forecast response for the largest cities
      */
     @Operation(summary = "Get weather forecasts for the 5 largest Polish cities",
@@ -94,16 +95,16 @@ public class ForecastController {
                             examples = @ExampleObject(ref = "#/components/examples/exampleTop5ForecastResponse"))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @GetMapping(path = "/forecasts/largest-cities")
+    @GetMapping(path = "/forecast/largest-cities")
     public ResponseEntity<?> weatherForecastForLargestCities(
-            @Parameter(description = "Number of days for the forecast (default is 3)")
+            @Parameter(description = "Number of days of weather forecast." +
+                    " Value ranges from 1 to 14")
             @RequestParam(required = false, defaultValue = "3") @Min(1) Integer days,
-            @Parameter(description = "Date for the forecast (optional)")
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt,
-            @Parameter(description = "Language for the forecast (default is 'eng')")
-            @RequestParam(required = false, defaultValue = "eng") String lang) {
+            @Parameter(description = "Date should be between today and next 14 day" +
+                    " in yyyy-MM-dd format. e.g. '2015-01-01'")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt) {
         // Fetch the forecast response for the largest cities
-        List<ForecastResponse> responses = forecastService.getForecastsLargestCities(days, dt, lang);
+        List<ForecastResponse> responses = forecastService.getForecastsLargestCities(days, dt);
         // Return the response entity
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
