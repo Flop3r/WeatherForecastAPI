@@ -3,80 +3,108 @@ package com.flop3r.weatherforecast.controller;
 import com.flop3r.weatherforecast.domain.ForecastRequestDetail;
 import com.flop3r.weatherforecast.entity.response.ForecastResponse;
 import com.flop3r.weatherforecast.service.ForecastService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-/** ForecastController handles HTTP requests for weather forecasts.
- *
- * This controller provides an endpoint to retrieve weather forecasts based on
- * the specified parameters such as location, date, number of days, and language.
- */
 @RestController
 @RequestMapping(path = "api/v1")
+@Tag(name = "Forecasts", description = "Operations related to weather forecasts")
+@Validated
 public class ForecastController {
 
     private final ForecastService forecastService;
 
-    /**
-     * Constructor.
-     *
-     * @param forecastService The service used to fetch weather forecasts.
-     */
+    // Constructor for dependency injection
     @Autowired
     public ForecastController(ForecastService forecastService) {
         this.forecastService = forecastService;
     }
 
     /**
-     * Retrieves the weather forecast based on the specified parameters.
-     * Retrieves the weather forecast based on the specified parameters.
+     * Retrieves weather forecasts based on the specified parameters such as location, date, number of days, and language.
      *
-     * @param q      The location for the forecast.
-     * @param days   The number of days for the forecast (default is 3).
-     * @param dt     The date for the forecast (optional).
-     * @param lang   The language for the forecast (default is "eng").
-     * @return ForecastResponse containing the weather forecast data.
-     * @throws Exception if an error occurs while fetching the forecast data.
+     * @param q      Locations for the forecast
+     * @param days   Number of days for the forecast (default is 3)
+     * @param dt     Date for the forecast (optional)
+     * @param lang   Language for the forecast (default is 'eng')
+     * @return Weather forecast response
      */
-    /**
-     * Retrieves the weather forecast based on the specified parameters.
-     *
-     * @param q      The locations for the forecast.
-     * @param days   The number of days for the forecast (default is 3).
-     * @param dt     The date for the forecast (optional).
-     * @param lang   The language for the forecast (default is "eng").
-     * @return List of ForecastResponse containing the weather forecast data for each location.
-     * @throws Exception if an error occurs while fetching the forecast data.
-     */
+    @Operation(summary = "Get weather forecasts for specified locations",
+            description = "Retrieves weather forecasts based on the specified parameters such as location, date, number of days, and language.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)),
+                            examples = @ExampleObject(ref = "#/components/examples/exampleForecastResponse"))),
+            @ApiResponse(responseCode = "400", description = "Invalid input parameters", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     @GetMapping(path = "/forecast")
-    public List<ForecastResponse> weatherForecast(
-            @RequestParam List<String> q,
-            @RequestParam(required = false, defaultValue = "3") Integer days,
-            @RequestParam(required = false) @DateTimeFormat(
-                    iso = DateTimeFormat.ISO.DATE) LocalDate dt,
-            @RequestParam(required = false, defaultValue = "eng") String lang) throws Exception {
+    public ResponseEntity<?> weatherForecast(
+            @Parameter(description = "Locations for the forecast")
+            @RequestParam @NotBlank String q,
+            @Parameter(description = "Number of days for the forecast (default is 3)")
+            @RequestParam(required = false, defaultValue = "3") @Min(1) Integer days,
+            @Parameter(description = "Date for the forecast (optional)")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt,
+            @Parameter(description = "Language for the forecast (default is 'eng')")
+            @RequestParam(required = false, defaultValue = "eng") String lang
+    ) throws Exception {
+        // Create request detail object
+        ForecastRequestDetail requestDetail = new ForecastRequestDetail(q, days, dt, lang);
+        // Fetch the forecast response
+        ForecastResponse response = forecastService.getResponse(requestDetail);
+        // Return the response entity
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
-        List<ForecastResponse> responses = new ArrayList<>();
-
-        for (String location : q) {
-            final ForecastRequestDetail forecastRequestDetail = ForecastRequestDetail.builder()
-                    .location(location)
-                    .days(days)
-                    .date(dt)
-                    .language(lang)
-                    .build();
-
-            responses.add(forecastService.getResponse(forecastRequestDetail));
-        }
-
-        return responses;
+    /**
+     * Retrieves weather forecasts for the 5 largest Polish cities.
+     *
+     * @param days    Number of days for the forecast (default is 3)
+     * @param dt      Date for the forecast (optional)
+     * @param lang    Language for the forecast (default is 'eng')
+     * @return Weather forecast response for the largest cities
+     */
+    @Operation(summary = "Get weather forecasts for the 5 largest Polish cities",
+            description = "Retrieves weather forecasts for Warsaw, Krakow, Lodz, Wroclaw, and Poznan.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)),
+                            examples = @ExampleObject(ref = "#/components/examples/exampleTop5ForecastResponse"))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @GetMapping(path = "/forecasts/largest-cities")
+    public ResponseEntity<?> weatherForecastForLargestCities(
+            @Parameter(description = "Number of days for the forecast (default is 3)")
+            @RequestParam(required = false, defaultValue = "3") @Min(1) Integer days,
+            @Parameter(description = "Date for the forecast (optional)")
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt,
+            @Parameter(description = "Language for the forecast (default is 'eng')")
+            @RequestParam(required = false, defaultValue = "eng") String lang) {
+        // Fetch the forecast response for the largest cities
+        List<ForecastResponse> responses = forecastService.getForecastsLargestCities(days, dt, lang);
+        // Return the response entity
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 }

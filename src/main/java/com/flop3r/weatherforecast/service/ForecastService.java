@@ -8,6 +8,11 @@ import com.flop3r.weatherforecast.transformer.ResponseTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * ForecastService is a service class responsible for processing weather forecast requests.
  *
@@ -43,4 +48,42 @@ public class ForecastService {
         return ResponseTransformer.transformWeatherToForecast(response);
     }
 
+    /**
+     * Retrieves the weather forecasts for the 5 largest Polish cities.
+     *
+     * @param days The number of days for the forecast.
+     * @param dt The date for the forecast.
+     * @param lang The language for the forecast.
+     * @return A list of ForecastResponse for the largest cities.
+     */
+    public List<ForecastResponse> getForecastsLargestCities(
+            Integer days,
+            LocalDate dt,
+            String lang) {
+        // List of the 5 largest population Polish cities
+        List<String> largestCities = Arrays.asList("Warsaw", "Krakow", "Lodz", "Wroclaw", "Poznan");
+        List<ForecastResponse> responses = new ArrayList<>();
+
+        // Loop through each city and fetch the forecast
+        for (String city : largestCities) {
+            try {
+                // Create the request detail for each city
+                ForecastRequestDetail requestDetail = ForecastRequestDetail.builder()
+                        .location(city)
+                        .days(days)
+                        .date(dt)
+                        .language(lang)
+                        .build();
+
+                // Get the forecast response for each city
+                ForecastResponse response = getResponse(requestDetail);
+                responses.add(response);
+            } catch (Exception e) {
+                // Handle exceptions, optionally log or add error handling logic here
+                e.printStackTrace();
+            }
+        }
+
+        return responses;
+    }
 }
