@@ -1,8 +1,8 @@
-package com.example.weatherforecast.res;
+package com.flop3r.weatherforecast.res;
 
-import com.example.weatherforecast.res.domain.ForecastRequestDetail;
-import com.example.weatherforecast.res.entity.response.ForecastResponse;
-import com.example.weatherforecast.res.service.ForecastService;
+import com.flop3r.weatherforecast.res.domain.ForecastRequestDetail;
+import com.flop3r.weatherforecast.res.entity.response.ForecastResponse;
+import com.flop3r.weatherforecast.res.service.ForecastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;

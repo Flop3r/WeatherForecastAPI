@@ -1,12 +1,10 @@
-package com.example.weatherforecast.res.entity.response;
-
-import lombok.Getter;
-import lombok.Setter;
-
-import com.example.weatherforecast.res.entity.ForecastEntity;
-import com.example.weatherforecast.res.entity.LocationEntity;
+package com.flop3r.weatherforecast.res.entity.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.flop3r.weatherforecast.res.entity.ForecastEntity;
+import com.flop3r.weatherforecast.res.entity.LocationEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * ForecastResponse is a data transfer object (DTO) representing the response
@@ -23,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
-public class WeatherApiResponse {
+public class WeatherDataResponse {
 
     @JsonProperty("location")
     private LocationEntity location;

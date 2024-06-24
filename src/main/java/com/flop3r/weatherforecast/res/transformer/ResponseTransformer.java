@@ -1,13 +1,14 @@
-package com.example.weatherforecast.res.transformer;
+package com.flop3r.weatherforecast.res.transformer;
 
-import com.example.weatherforecast.res.entity.response.ForecastResponse;
-import com.example.weatherforecast.res.entity.response.WeatherApiResponse;
+
+import com.flop3r.weatherforecast.res.entity.response.ForecastResponse;
+import com.flop3r.weatherforecast.res.entity.response.WeatherDataResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ResponseTransformer {
 
-    static public ForecastResponse transformWeatherToForecast(WeatherApiResponse responseWeather) {
+    static public ForecastResponse transformWeatherToForecast(WeatherDataResponse responseWeather) {
         ForecastResponse forecastResponse = new ForecastResponse();
         forecastResponse.setLocation(responseWeather.getLocation());
         forecastResponse.setWeatherForecasts(

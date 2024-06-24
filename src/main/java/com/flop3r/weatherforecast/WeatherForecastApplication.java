@@ -1,4 +1,4 @@
-package com.example.weatherforecast;
+package com.flop3r.weatherforecast;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,7 @@
-package com.example.weatherforecast.res.provider;
+package com.flop3r.weatherforecast.res.provider;
 
+import com.flop3r.weatherforecast.res.domain.ForecastRequestDetail;
+import com.flop3r.weatherforecast.res.entity.response.WeatherDataResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -9,9 +11,6 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.example.weatherforecast.res.domain.ForecastRequestDetail;
-import com.example.weatherforecast.res.entity.response.WeatherApiResponse;
 
 /**
  * ForecastProvider is a service class responsible for fetching weather forecast data
@@ -55,18 +54,18 @@ public class ForecastProvider {
      * @return WeatherApiResponse containing the weather forecast data.
      * @throws Exception if an error occurs while fetching the forecast data.
      */
-    public WeatherApiResponse getForecast(ForecastRequestDetail forecastRequestDetail) throws Exception {
+    public WeatherDataResponse getForecast(ForecastRequestDetail forecastRequestDetail) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> requestEntity = new HttpEntity<>(null, null);
 
         UriComponents uriBuilder = buildUri(forecastRequestDetail);
 
         try {
-            ResponseEntity<WeatherApiResponse> responseEntity = restTemplate.exchange(
+            ResponseEntity<WeatherDataResponse> responseEntity = restTemplate.exchange(
                     uriBuilder.toUriString(),
                     HttpMethod.GET,
                     requestEntity,
-                    WeatherApiResponse.class
+                    WeatherDataResponse.class
             );
             return responseEntity.getBody();
         } catch (HttpStatusCodeException e) {
