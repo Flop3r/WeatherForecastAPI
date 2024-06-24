@@ -1,4 +1,4 @@
-package com.flop3r.weatherforecast.res.entity;
+package com.flop3r.weatherforecast.entity;
 
 import lombok.Getter;
 import lombok.Setter;

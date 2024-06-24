@@ -1,13 +1,12 @@
-package com.flop3r.weatherforecast.res.service;
+package com.flop3r.weatherforecast.service;
 
-import com.flop3r.weatherforecast.res.domain.ForecastRequestDetail;
-import com.flop3r.weatherforecast.res.entity.response.ForecastResponse;
-import com.flop3r.weatherforecast.res.entity.response.WeatherDataResponse;
-import com.flop3r.weatherforecast.res.provider.ForecastProvider;
+import com.flop3r.weatherforecast.entity.response.ForecastResponse;
+import com.flop3r.weatherforecast.entity.response.WeatherDataResponse;
+import com.flop3r.weatherforecast.provider.ForecastProvider;
+import com.flop3r.weatherforecast.domain.ForecastRequestDetail;
+import com.flop3r.weatherforecast.transformer.ResponseTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static com.flop3r.weatherforecast.res.transformer.ResponseTransformer.transformWeatherToForecast;
 
 /**
  * ForecastService is a service class responsible for processing weather forecast requests.
@@ -41,7 +40,7 @@ public class ForecastService {
             throws Exception {
         WeatherDataResponse response = forecastProvider.getForecast(forecastRequestDetail);
 
-        return transformWeatherToForecast(response);
+        return ResponseTransformer.transformWeatherToForecast(response);
     }
 
 }

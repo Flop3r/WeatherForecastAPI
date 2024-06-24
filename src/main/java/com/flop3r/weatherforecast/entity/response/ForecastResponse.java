@@ -1,9 +1,9 @@
-package com.flop3r.weatherforecast.res.entity.response;
+package com.flop3r.weatherforecast.entity.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.flop3r.weatherforecast.res.entity.LocationEntity;
-import com.flop3r.weatherforecast.res.entity.WeatherForecastEntity;
+import com.flop3r.weatherforecast.entity.LocationEntity;
+import com.flop3r.weatherforecast.entity.WeatherForecastEntity;
 import lombok.Getter;
 import lombok.Setter;
 

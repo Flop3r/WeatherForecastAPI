@@ -1,4 +1,4 @@
-package com.flop3r.weatherforecast.res.domain;
+package com.flop3r.weatherforecast.domain;
 
 import lombok.Builder;
 import lombok.Getter;

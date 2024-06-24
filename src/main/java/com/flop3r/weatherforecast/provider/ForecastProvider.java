@@ -1,7 +1,7 @@
-package com.flop3r.weatherforecast.res.provider;
+package com.flop3r.weatherforecast.provider;
 
-import com.flop3r.weatherforecast.res.domain.ForecastRequestDetail;
-import com.flop3r.weatherforecast.res.entity.response.WeatherDataResponse;
+import com.flop3r.weatherforecast.entity.response.WeatherDataResponse;
+import com.flop3r.weatherforecast.domain.ForecastRequestDetail;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

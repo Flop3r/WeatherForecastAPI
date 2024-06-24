@@ -1,8 +1,8 @@
-package com.flop3r.weatherforecast.res.transformer;
+package com.flop3r.weatherforecast.transformer;
 
 
-import com.flop3r.weatherforecast.res.entity.response.ForecastResponse;
-import com.flop3r.weatherforecast.res.entity.response.WeatherDataResponse;
+import com.flop3r.weatherforecast.entity.response.ForecastResponse;
+import com.flop3r.weatherforecast.entity.response.WeatherDataResponse;
 import org.springframework.stereotype.Service;
 
 @Service
