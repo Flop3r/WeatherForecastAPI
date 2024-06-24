@@ -1,10 +1,10 @@
 package com.flop3r.weatherforecast.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * WeatherDailyEntity represents the daily weather details.
@@ -21,8 +21,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Getter
 @Setter
+@Schema(name = "weather-day")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherDailyEntity {
+public class WeatherDayEntity {
 
     @JsonProperty("maxtemp_c")
     private Float maxTemperature;

@@ -2,8 +2,9 @@ package com.flop3r.weatherforecast.entity.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.flop3r.weatherforecast.entity.DayEntity;
 import com.flop3r.weatherforecast.entity.LocationEntity;
-import com.flop3r.weatherforecast.entity.WeatherForecastEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Schema(name = "forecast")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ForecastResponse {
 
@@ -35,5 +37,5 @@ public class ForecastResponse {
      * is designed to be extendable for future features.
      */
     @JsonProperty("forecast")
-    private WeatherForecastEntity[] weatherForecasts;
+    private DayEntity[] weatherForecasts;
 }

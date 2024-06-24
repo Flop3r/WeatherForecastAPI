@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -53,8 +52,7 @@ public class ForecastController {
             description = "Retrieves weather forecasts based on the specified parameters such as location, date, number of days, and language.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)),
-                            examples = @ExampleObject(ref = "#/components/examples/exampleForecastResponse"))),
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
             @ApiResponse(responseCode = "400", description = "Invalid input parameters", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
@@ -91,8 +89,7 @@ public class ForecastController {
             description = "Retrieves weather forecasts for Warsaw, Krakow, Lodz, Wroclaw, and Poznan.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)),
-                            examples = @ExampleObject(ref = "#/components/examples/exampleTop5ForecastResponse"))),
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @GetMapping(path = "/forecast/largest-cities")

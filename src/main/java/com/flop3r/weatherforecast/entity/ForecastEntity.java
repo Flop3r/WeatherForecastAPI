@@ -1,10 +1,9 @@
 package com.flop3r.weatherforecast.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * ForecastEntity represents the forecast details, encapsulating an array of
@@ -24,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ForecastEntity {
 
     @JsonProperty("forecastday")
-    private WeatherForecastEntity[] forecastDay;
+    private DayEntity[] forecastDay;
 
     //...
 }
