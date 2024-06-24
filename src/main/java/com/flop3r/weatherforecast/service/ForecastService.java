@@ -59,7 +59,7 @@ public class ForecastService {
             Integer days,
             LocalDate dt) {
         // List of the 5 largest population Polish cities
-        List<String> largestCities = Arrays.asList("Warsaw", "Krakow", "Lodz", "Wroclaw", "Poznan");
+        List<String> largestCities = Arrays.asList("Warsaw", "Cracow", "Lodz", "Wroclaw", "Poznan");
         List<ForecastResponse> responses = new ArrayList<>();
 
         // Loop through each city and fetch the forecast
