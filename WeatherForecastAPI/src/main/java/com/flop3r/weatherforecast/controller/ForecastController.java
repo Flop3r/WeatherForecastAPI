@@ -86,7 +86,7 @@ public class ForecastController {
      * @return Weather forecast response for the largest cities
      */
     @Operation(summary = "Get weather forecasts for the 5 largest Polish cities",
-            description = "Retrieves weather forecasts for Warsaw, Krakow, Lodz, Wroclaw, and Poznan.")
+            description = "Retrieves weather forecasts for Warsaw, Cracow, Lodz, Wroclaw, and Poznan.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
