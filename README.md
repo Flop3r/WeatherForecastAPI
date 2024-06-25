@@ -98,7 +98,7 @@ For deployment, a `deploy.sh` script is provided. This script will build and dep
 - Java 17
 - Maven
 - Docker (optional, for containerized deployment)
-- 
+
 ## License
 
 This project is licensed under the MIT License.
