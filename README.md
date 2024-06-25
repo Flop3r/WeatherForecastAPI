@@ -8,8 +8,8 @@ This project was developed as a business task for a recruitment process at Volvo
 
 ## Features
 
-- **Weather Forecast**: Provides weather forecast for specific location *for the next 3 days.
-- **Major Cities in Poland**: Includes forecasts for the 5 biggest cities in Poland *for the next 3 days.
+- **Weather Forecast**: Provides weather forecast for specific location for the next 3 days*.
+- **Major Cities in Poland**: Includes forecasts for the 5 biggest cities in Poland for the next 3 days*.
 
 ###### *Duration can be changed by query
 
