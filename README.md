@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a Spring Boot application that exposes a RESTful API for retrieving weather forecasts. It utilizes the WeatherAPI service to fetch weather data and presents the forecast for the next 3 days for the 5 biggest cities in Poland.
+This project is a Spring Boot application that exposes a RESTful API for retrieving weather forecasts. It utilizes the WeatherAPI service to fetch weather data and presents the forecast.
 
 This project was developed as a business task for a recruitment process at Volvo Group.
 
