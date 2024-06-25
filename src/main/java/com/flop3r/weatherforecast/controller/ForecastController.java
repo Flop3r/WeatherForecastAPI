@@ -49,10 +49,12 @@ public class ForecastController {
      * @return Weather forecast response
      */
     @Operation(summary = "Get weather forecasts for specified locations",
-            description = "Retrieves weather forecasts based on the specified parameters such as location, date, number of days, and language.")
+            description = "Retrieves weather forecasts based on the specified parameters such as " +
+                    "location, date, number of days, and language.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
+                    content = @Content(array =
+                    @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
             @ApiResponse(responseCode = "400", description = "Invalid input parameters", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
@@ -68,7 +70,8 @@ public class ForecastController {
             @RequestParam(required = false, defaultValue = "3") @Min(1) Integer days,
             @Parameter(description = "Date should be between today and next 14 day" +
                     " in yyyy-MM-dd format. e.g. '2015-01-01'")
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt
+            @RequestParam(required = false) @DateTimeFormat(
+                    iso = DateTimeFormat.ISO.DATE) LocalDate dt
     ) throws Exception {
         // Create request detail object
         ForecastRequestDetail requestDetail = new ForecastRequestDetail(q, days, dt);
@@ -89,7 +92,8 @@ public class ForecastController {
             description = "Retrieves weather forecasts for Warsaw, Cracow, Lodz, Wroclaw, and Poznan.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
-                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
+                    content = @Content(array =
+                    @ArraySchema(schema = @Schema(implementation = ForecastResponse.class)))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @GetMapping(path = "/forecast/largest-cities")
@@ -99,7 +103,8 @@ public class ForecastController {
             @RequestParam(required = false, defaultValue = "3") @Min(1) Integer days,
             @Parameter(description = "Date should be between today and next 14 day" +
                     " in yyyy-MM-dd format. e.g. '2015-01-01'")
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dt) {
+            @RequestParam(required = false) @DateTimeFormat(
+                    iso = DateTimeFormat.ISO.DATE) LocalDate dt) {
         // Fetch the forecast response for the largest cities
         List<ForecastResponse> responses = forecastService.getForecastsLargestCities(days, dt);
         // Return the response entity

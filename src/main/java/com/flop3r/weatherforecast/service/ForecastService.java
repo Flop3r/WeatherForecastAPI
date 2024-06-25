@@ -62,7 +62,7 @@ public class ForecastService {
         List<String> largestCities = Arrays.asList("Warsaw", "Cracow", "Lodz", "Wroclaw", "Poznan");
         List<ForecastResponse> responses = new ArrayList<>();
 
-        // Loop through each city and fetch the forecast
+        // Iterate through each city and fetch the forecast
         for (String city : largestCities) {
             try {
                 // Create the request detail for each city
@@ -76,7 +76,6 @@ public class ForecastService {
                 ForecastResponse response = getResponse(requestDetail);
                 responses.add(response);
             } catch (Exception e) {
-                // Handle exceptions, optionally log or add error handling logic here
                 e.printStackTrace();
             }
         }
