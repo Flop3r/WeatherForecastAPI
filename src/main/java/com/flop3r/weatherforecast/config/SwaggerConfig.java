@@ -17,7 +17,8 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("WEATHER FORECAST API")
                         .version("1.0.0")
-                        .description("API provides weather forecast.  ")
+                        .description("API provides weather forecast. It utilizes the WeatherAPI" +
+                                " service to fetch weather data and presents the forecast" )
                         .contact(new Contact()
                                 .name("Franciszek P")
                                 .email("dev-team@gmail.com")
