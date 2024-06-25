@@ -45,6 +45,8 @@ cd WeatherForecastAPI
 
 ### Using Docker (Recommended)
 
+Run Docker Daemon or Docker Desktop
+
 A Dockerfile is provided for containerized deployment. To build and run the Docker container:
 
 ```
