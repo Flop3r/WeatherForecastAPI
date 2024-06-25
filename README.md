@@ -93,11 +93,21 @@ For deployment, a `deploy.sh` script is provided. This script will build and dep
 ./deploy.sh
 ```
 
+## Configuration
+
+### Weather API Key
+The application requires an API key from WeatherAPI to fetch weather data. You can configure the API key in `application.properties`:
+
+```
+weatherapi.key=YOUR_API_KEY
+```
+
 ## Prerequisites
 
 - Java 17
 - Maven
 - Docker (optional, for containerized deployment)
+
 
 ## License
 
