@@ -98,6 +98,8 @@ For deployment, a `deploy.sh` script is provided. This script will build and dep
 ## Configuration
 
 ### Weather API Key
+
+##### For presentation purposes, you can omit the process; the latest version of this repository does not require your own API key.
 The application requires an API key from WeatherAPI to fetch weather data. You can configure the API key in `application.properties`:
 
 ```
